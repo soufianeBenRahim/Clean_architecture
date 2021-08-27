@@ -7,3 +7,6 @@ Clean architecture le meilleur des deux repository 1- de microsfor https://githu
 3- ajouter les projets de Eventbus et IntegrationEventLogEF (Dérivé par le projet de microsoft)
 4- ajouter un projet autonome Identite.APi (Dérivé par le projet microsft )
 ** 3 - 4 leur ajout permet de réaliser un projet micro services 
+
+
+pour travailler bien avec l'archetecture microservice je vous conseille de lire l'article de microsoft https://docs.microsoft.com/fr-fr/dotnet/architecture/microservices/?WT.mc_id=dotnet-35129-website
