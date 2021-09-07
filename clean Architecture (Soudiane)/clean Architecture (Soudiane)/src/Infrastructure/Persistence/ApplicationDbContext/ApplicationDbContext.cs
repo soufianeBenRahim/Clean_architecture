@@ -21,7 +21,7 @@ namespace Clean_Architecture_Soufiane.Infrastructure.Persistence
 
         private IDbContextTransaction _currentTransaction;
         public ApplicationDbContext(
-            DbContextOptions options,
+            DbContextOptions<ApplicationDbContext> options,
             ICurrentUserService currentUserService,
             IDomainEventService domainEventService,
             IDateTime dateTime) : base(options)
