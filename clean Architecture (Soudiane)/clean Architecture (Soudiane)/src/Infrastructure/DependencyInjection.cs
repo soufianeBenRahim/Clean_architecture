@@ -1,4 +1,5 @@
 ﻿using Clean_Architecture_Soufiane.Application.Common.Interfaces;
+using Clean_Architecture_Soufiane.BuildingBlocks.IntegrationEventLogEF;
 using Clean_Architecture_Soufiane.Domain.Seedwork;
 using Clean_Architecture_Soufiane.Infrastructure.Files;
 using Clean_Architecture_Soufiane.Infrastructure.Persistence;
@@ -19,6 +20,9 @@ namespace Clean_Architecture_Soufiane.Infrastructure
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
                    options.UseInMemoryDatabase("Clean_Architecture_SoufianeDb"));
+                services.AddDbContext<IntegrationEventLogContext>(options =>
+                  options.UseInMemoryDatabase("Clean_Architecture_SoufianeDb"));
+                
             }
             else
             {
@@ -26,6 +30,10 @@ namespace Clean_Architecture_Soufiane.Infrastructure
                     options.UseSqlServer(
                         configuration.GetConnectionString("DefaultConnection"),
                         b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                services.AddDbContext<IntegrationEventLogContext>(options =>
+                    options.UseSqlServer(
+                        configuration.GetConnectionString("DefaultConnection"),
+                        b => b.MigrationsAssembly(typeof(IntegrationEventLogContext).Assembly.FullName)));
 
             }
 

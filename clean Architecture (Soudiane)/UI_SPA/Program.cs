@@ -1,3 +1,4 @@
+using Clean_Architecture_Soufiane.BuildingBlocks.IntegrationEventLogEF;
 using Clean_Architecture_Soufiane.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,8 @@ namespace UI_SPA
         public async static Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-
+            //  avec la migration
+           
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -30,11 +32,22 @@ namespace UI_SPA
 
                     if (SaleContext.Database.IsSqlServer())
                     {
+                        // recriation des table 
                         SaleContext.Database.EnsureDeleted();
                         SaleContext.Database.EnsureCreated();
+                        // avec migration
+                        //SaleContext.Database.Migrate();
+
                     }
-
-
+                    var IntegrationEventContext = services.GetRequiredService<IntegrationEventLogContext>();
+                    if (IntegrationEventContext.Database.IsSqlServer())
+                    {
+                        // recriation des table 
+                        IntegrationEventContext.Database.EnsureDeleted();
+                        IntegrationEventContext.Database.EnsureCreated();
+                        // avec migration
+                        //IntegrationEventContext.Database.Migrate();
+                    }
                     var env = services.GetService<IWebHostEnvironment>();
                     var logger = services.GetService<ILogger<ApplicationDbContextSeed>>();
 
@@ -52,7 +65,7 @@ namespace UI_SPA
                     throw;
                 }
             }
-
+           
             await host.RunAsync();
         }
 
