@@ -1,3 +1,6 @@
+using Clean_Architecture_Soufiane.Application;
+using Clean_Architecture_Soufiane.Application.Common.Interfaces;
+using Clean_Architecture_Soufiane.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,6 +8,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using UI_SPA.Services;
 
 namespace UI_SPA
 {
@@ -26,6 +30,13 @@ namespace UI_SPA
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            services.AddApplication();
+            services.AddInfrastructure(Configuration);
+            services.Configure<ApplicationSettings>(Configuration);
+            services.AddSingleton<ICurrentUserService, CurrentUserService>();
+            services.AddHttpContextAccessor();
+            services.AddSingleton<IAppInfo, AppInfo>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

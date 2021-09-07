@@ -1,7 +1,5 @@
 ﻿using Clean_Architecture_Soufiane.Application.Common.Interfaces;
-using Clean_Architecture_Soufiane.Domain.AggregatesModel;
 using Clean_Architecture_Soufiane.Domain.Seedwork;
-using Clean_Architecture_Soufiane.Infrastructure.Persistence.Confeguration;
 using Clean_Architecture_Soufiane.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -32,7 +30,6 @@ namespace Clean_Architecture_Soufiane.Infrastructure.Persistence
             _domainEventService = domainEventService;
             _dateTime = dateTime;
         }
-        public DbSet<Vente> Orders { get; set; }
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             // Dispatch Domain Events collection. 
@@ -75,10 +72,7 @@ namespace Clean_Architecture_Soufiane.Infrastructure.Persistence
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(builder);
-            builder.ApplyConfiguration(new VenteItemEntityTypeConfiguration());
-            builder.ApplyConfiguration(new VenteEntityTypeConfiguration());
-            builder.ApplyConfiguration(new VenteStatusEntityTypeConfiguration());
-          
+                   
         }
 
         private async Task DispatchEvents()
