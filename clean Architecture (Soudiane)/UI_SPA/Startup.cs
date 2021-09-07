@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using UI_SPA.Services;
+
 
 namespace UI_SPA
 {
@@ -30,6 +32,11 @@ namespace UI_SPA
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            services.AddMvc();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "UI_SPA", Version = "v1" });
+            });
             services.AddApplication();
             services.AddInfrastructure(Configuration);
             services.Configure<ApplicationSettings>(Configuration);
@@ -45,6 +52,8 @@ namespace UI_SPA
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UI_SPA v1"));
             }
             else
             {

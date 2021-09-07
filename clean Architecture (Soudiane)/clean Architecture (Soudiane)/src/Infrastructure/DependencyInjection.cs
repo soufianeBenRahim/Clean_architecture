@@ -1,7 +1,6 @@
 ﻿using Clean_Architecture_Soufiane.Application.Common.Interfaces;
 using Clean_Architecture_Soufiane.BuildingBlocks.IntegrationEventLogEF;
 using Clean_Architecture_Soufiane.Domain.Seedwork;
-using Clean_Architecture_Soufiane.Infrastructure.Files;
 using Clean_Architecture_Soufiane.Infrastructure.Persistence;
 using Clean_Architecture_Soufiane.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
@@ -41,10 +40,6 @@ namespace Clean_Architecture_Soufiane.Infrastructure
             services.AddScoped<IDomainEventService, DomainEventService>();
 
             services.AddTransient<IDateTime, DateTimeService>();
-            services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
-
-
-         
 
             return services;
         }
